@@ -2,7 +2,7 @@
 Summary:	Allows custom language loaders for specified file extensions to be hooked into require
 Name:		ruby-%{pkgname}
 Version:	0.3.5
-Release:	1
+Release:	2
 License:	MIT/Ruby License
 Source0:	http://rubygems.org/downloads/%{pkgname}-%{version}.gem
 # Source0-md5:	5fff8b0cfb2b36d885b90d271802a7c5
