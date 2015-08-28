@@ -2,21 +2,16 @@
 Summary:	Allows custom language loaders for specified file extensions to be hooked into require
 Name:		ruby-%{pkgname}
 Version:	0.3.5
-Release:	2
-License:	MIT/Ruby License
+Release:	3
+License:	MIT
 Source0:	http://rubygems.org/downloads/%{pkgname}-%{version}.gem
 # Source0-md5:	5fff8b0cfb2b36d885b90d271802a7c5
 Group:		Development/Languages
-URL:		http://rubyforge.org/projects/.../
-BuildRequires:	rpmbuild(macros) >= 1.484
-BuildRequires:	ruby >= 1:1.8.6
-BuildRequires:	ruby-modules
-%{?ruby_mod_ver_requires_eq}
-#BuildArch:	noarch
+URL:		http://github.com/cjheath/polyglot
+BuildRequires:	rpm-rubyprov
+BuildRequires:	rpmbuild(macros) >= 1.665
+BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-# nothing to be placed there. we're not noarch only because of ruby packaging
-%define		_enable_debug_packages	0
 
 %description
 Allows custom language loaders for specified file
@@ -57,12 +52,13 @@ rdoc --ri --op ri lib
 rdoc --op rdoc lib
 rm -r ri/Kernel
 rm ri/created.rid
+rm ri/cache.ri
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{ruby_rubylibdir},%{ruby_ridir},%{ruby_rdocdir}}
+install -d $RPM_BUILD_ROOT{%{ruby_vendorlibdir},%{ruby_ridir},%{ruby_rdocdir}}
 
-cp -a lib/* $RPM_BUILD_ROOT%{ruby_rubylibdir}
+cp -a lib/* $RPM_BUILD_ROOT%{ruby_vendorlibdir}
 cp -a ri/* $RPM_BUILD_ROOT%{ruby_ridir}
 cp -a rdoc $RPM_BUILD_ROOT%{ruby_rdocdir}/%{name}-%{version}
 
@@ -76,8 +72,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc History.txt README.txt
-%{ruby_rubylibdir}/%{pkgname}.rb
-%{ruby_rubylibdir}/%{pkgname}
+%{ruby_vendorlibdir}/%{pkgname}.rb
+%{ruby_vendorlibdir}/%{pkgname}
 %{ruby_specdir}/%{pkgname}-%{version}.gemspec
 
 %files rdoc
